@@ -1,0 +1,29 @@
+# Data & models (download locally or from Colab)
+data/
+outputs/
+*.csv
+*.parquet
+!configs/*.yaml
+
+# Python
+.venv/
+venv/
+.pytest_cache/
+__pycache__/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# HF / torch caches (keep outside repo)
+# ~/.cache/huggingface
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets
+.env
+hf_token.txt
