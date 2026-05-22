@@ -13,8 +13,15 @@
 1. Нажмите badge **Open in Colab** выше (или Colab → GitHub → `Ermakov764/guard-calibration-airi` → `colab/AIRI_Guard_Calibration.ipynb`).
 2. **Runtime → Change runtime type → T4 GPU**.
 3. При gated-моделях: в Colab `Secrets` добавьте `HF_TOKEN` (Hugging Face, доступ к `allenai/wildguard`).
-4. Run all → скачайте `guard_scores.csv` → положите в `outputs/`.
-5. Локально: `python experiments/03_plot_from_scores.py` → графики в `report/figures/`.
+4. **Run all** (версия `NOTEBOOK_VERSION = 2026-05-23-colab-v7`): logits Yes/No + ячейка temperature scaling.
+5. Скачайте `guard_scores.csv` и `calibration_summary.json` → `outputs/`.
+6. Локально:
+   ```bash
+   PYTHONPATH=. python experiments/03_plot_from_scores.py
+   PYTHONPATH=. python experiments/04_advanced_analysis.py
+   PYTHONPATH=. python experiments/05_logit_calibration.py
+   ```
+   Графики в `report/figures/` (скопируйте PNG в `Статья AIRI/Files/` для Obsidian).
 
 ## Железо (ваш ASUS TUF A15)
 
@@ -31,10 +38,12 @@
 guard-calibration-proposal/
 ├── colab/AIRI_Guard_Calibration.ipynb   # тяжёлый инференс
 ├── configs/experiment.yaml
-├── src/                  # ECE, perturbations, parsing
+├── src/                  # ECE, flip/FPR metrics, perturbations
 ├── tests/                # unit-тесты метрик
 ├── experiments/
-│   └── 03_plot_from_scores.py
+│   ├── 03_plot_from_scores.py
+│   ├── 04_advanced_analysis.py   # flip по срезам, FPR, bootstrap CI
+│   └── 05_logit_calibration.py   # ECE parse vs logits vs TS
 ├── report/
 │   ├── PROPOSAL_OUTLINE.md
 │   └── figures/          # после plot script

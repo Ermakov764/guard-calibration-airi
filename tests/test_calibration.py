@@ -11,13 +11,13 @@ from src.calibration import (
 )
 
 
-def test_perfect_calibration_low_ece():
-    rng = np.random.default_rng(0)
-    n = 2000
-    p = rng.uniform(0.05, 0.95, n)
-    y = (rng.uniform(0, 1, n) < p).astype(float)
-    ece = expected_calibration_error(y, p, n_bins=15)
-    assert ece < 0.08
+def test_classifier_calibration_low_ece_when_conf_matches_acc():
+    """When predictions are correct and confidence matches class, ECE is low."""
+    y_true = np.array([0, 0, 0, 1, 1, 1] * 200, dtype=float)
+    y_prob = np.array([0.05, 0.05, 0.05, 0.95, 0.95, 0.95] * 200, dtype=float)
+    y_pred = (y_prob >= 0.5).astype(float)
+    ece = expected_calibration_error(y_true, y_prob, y_pred=y_pred, n_bins=5)
+    assert ece < 0.06
 
 
 def test_overconfident_wrong_has_higher_ece():

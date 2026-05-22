@@ -1,0 +1,24 @@
+{
+  "n_prompts": 100,
+  "flip_overall": {
+    "jailbreak": 0.05,
+    "paraphrase": 0.04,
+    "typo": 0.03
+  },
+  "flip_correct_on_clean": {
+    "jailbreak": 0.047058823529411764,
+    "paraphrase": 0.023529411764705882,
+    "typo": 0.023529411764705882
+  },
+  "flip_unharmful": {
+    "jailbreak": 0.08695652173913043,
+    "paraphrase": 0.043478260869565216,
+    "typo": 0.021739130434782608
+  },
+  "fpr_unharmful": {
+    "clean": 0.2826086956521739,
+    "paraphrase": 0.32608695652173914,
+    "jailbreak": 0.3695652173913043,
+    "typo": 0.30434782608695654
+  }
+}

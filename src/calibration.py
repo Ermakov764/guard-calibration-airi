@@ -9,16 +9,22 @@ def expected_calibration_error(
     y_true: np.ndarray,
     y_prob: np.ndarray,
     n_bins: int = 15,
+    y_pred: np.ndarray | None = None,
 ) -> float:
     """
-    ECE for binary classification.
+    ECE for binary classification (classifier calibration).
     y_true: 0/1 ground truth
     y_prob: predicted P(y=1), in [0, 1]
+    y_pred: optional hard predictions; default threshold 0.5 on y_prob
     """
     y_true = np.asarray(y_true, dtype=float).ravel()
     y_prob = np.asarray(y_prob, dtype=float).ravel()
     if y_true.shape != y_prob.shape:
         raise ValueError("y_true and y_prob must have the same shape")
+    if y_pred is None:
+        y_pred = (y_prob >= 0.5).astype(float)
+    else:
+        y_pred = np.asarray(y_pred, dtype=float).ravel()
 
     bins = np.linspace(0.0, 1.0, n_bins + 1)
     ece = 0.0
@@ -30,8 +36,13 @@ def expected_calibration_error(
             mask = (y_prob >= lo) & (y_prob <= hi)
         if not np.any(mask):
             continue
-        acc = y_true[mask].mean()
-        conf = y_prob[mask].mean()
+        acc = (y_pred[mask] == y_true[mask]).mean()
+        # Confidence in the predicted class (standard binary classifier ECE).
+        conf = np.where(
+            y_pred[mask] == 1,
+            y_prob[mask],
+            1.0 - y_prob[mask],
+        ).mean()
         ece += mask.mean() * abs(acc - conf)
     return float(ece)
 
@@ -40,10 +51,15 @@ def reliability_bins(
     y_true: np.ndarray,
     y_prob: np.ndarray,
     n_bins: int = 15,
+    y_pred: np.ndarray | None = None,
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     """Return (mean_confidence, accuracy, count) per bin."""
     y_true = np.asarray(y_true, dtype=float).ravel()
     y_prob = np.asarray(y_prob, dtype=float).ravel()
+    if y_pred is None:
+        y_pred = (y_prob >= 0.5).astype(float)
+    else:
+        y_pred = np.asarray(y_pred, dtype=float).ravel()
     bins = np.linspace(0.0, 1.0, n_bins + 1)
     confs, accs, counts = [], [], []
     for i in range(n_bins):
@@ -57,8 +73,16 @@ def reliability_bins(
             accs.append(np.nan)
             counts.append(0)
             continue
-        confs.append(float(y_prob[mask].mean()))
-        accs.append(float(y_true[mask].mean()))
+        confs.append(
+            float(
+                np.where(
+                    y_pred[mask] == 1,
+                    y_prob[mask],
+                    1.0 - y_prob[mask],
+                ).mean()
+            )
+        )
+        accs.append(float((y_pred[mask] == y_true[mask]).mean()))
         counts.append(int(mask.sum()))
     return np.array(confs), np.array(accs), np.array(counts)
 
