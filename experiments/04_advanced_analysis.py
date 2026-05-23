@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Advanced robustness analysis and figures from guard_scores.csv."""
+"""Flip/FPR analysis and figures from guard_scores.csv."""
 
 from __future__ import annotations
 

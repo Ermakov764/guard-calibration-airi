@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build figures for the proposal from guard_scores.csv (Colab or local)."""
+"""Plots from guard_scores.csv."""
 
 from __future__ import annotations
 

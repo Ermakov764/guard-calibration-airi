@@ -1,5 +1,3 @@
-"""Robustness metrics for guard scores under perturbations."""
-
 from __future__ import annotations
 
 from dataclasses import dataclass

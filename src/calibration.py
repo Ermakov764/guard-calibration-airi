@@ -1,5 +1,3 @@
-"""Expected Calibration Error and reliability diagrams (ICLR guard paper style)."""
-
 from __future__ import annotations
 
 import numpy as np
@@ -11,12 +9,7 @@ def expected_calibration_error(
     n_bins: int = 15,
     y_pred: np.ndarray | None = None,
 ) -> float:
-    """
-    ECE for binary classification (classifier calibration).
-    y_true: 0/1 ground truth
-    y_prob: predicted P(y=1), in [0, 1]
-    y_pred: optional hard predictions; default threshold 0.5 on y_prob
-    """
+    """Binary ECE; y_pred defaults to threshold 0.5 on y_prob."""
     y_true = np.asarray(y_true, dtype=float).ravel()
     y_prob = np.asarray(y_prob, dtype=float).ravel()
     if y_true.shape != y_prob.shape:

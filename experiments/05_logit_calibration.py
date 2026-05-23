@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""ECE comparison: parse vs logits vs temperature scaling (from Colab CSV)."""
+"""ECE: parse vs logits vs temperature scaling."""
 
 from __future__ import annotations
 
@@ -22,7 +22,7 @@ def main() -> None:
 
     df = pd.read_csv(args.scores)
     if "y_prob_logit" not in df.columns or df["logit"].isna().all():
-        raise SystemExit("CSV has no logits columns — re-run Colab notebook v7+")
+        raise SystemExit("CSV missing y_prob_logit / logit — re-run Colab notebook")
 
     args.out.mkdir(parents=True, exist_ok=True)
     sns.set_theme(style="whitegrid")

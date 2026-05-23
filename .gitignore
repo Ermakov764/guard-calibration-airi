@@ -27,3 +27,13 @@ Thumbs.db
 # Secrets
 .env
 hf_token.txt
+
+# Local docs / draft reports (not part of the package)
+ШАГИ_ДЛЯ_ВАС.md
+GITHUB_COLAB.md
+DISK_CLEANUP.md
+report/PROPOSAL_OUTLINE.md
+report/RESEARCH_PROPOSAL*
+report/build_*.py
+colab/_patch_notebook_logits.py
+scripts/polish_notebook.py

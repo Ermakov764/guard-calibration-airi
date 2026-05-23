@@ -1,9 +1,5 @@
 #!/usr/bin/env python3
-"""
-Smoke test on RTX 3050 4GB with Llama-Guard-3-1B (optional).
-Requires: pip install torch transformers accelerate bitsandbytes
-HF access: meta-llama/Llama-Guard-3-1B (accept license on Hugging Face).
-"""
+"""Optional local smoke test with Llama-Guard-3-1B (4-bit)."""
 
 from __future__ import annotations
 

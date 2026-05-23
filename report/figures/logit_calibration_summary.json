@@ -1,0 +1,29 @@
+{
+  "T_opt": 1.9000000000000001,
+  "ece_by_pert": [
+    {
+      "perturbation": "clean",
+      "ece_parse": 0.22999999999999998,
+      "ece_logits": 0.10373040999897057,
+      "ece_logits_ts": 0.11345595155649037
+    },
+    {
+      "perturbation": "paraphrase",
+      "ece_parse": 0.19799999999999995,
+      "ece_logits": 0.14494675191002898,
+      "ece_logits_ts": 0.10877763974723613
+    },
+    {
+      "perturbation": "jailbreak",
+      "ece_parse": 0.1599999999999998,
+      "ece_logits": 0.1209120463789441,
+      "ece_logits_ts": 0.13029035876949357
+    },
+    {
+      "perturbation": "typo",
+      "ece_parse": 0.21199999999999997,
+      "ece_logits": 0.12967306535458187,
+      "ece_logits_ts": 0.11858079319984388
+    }
+  ]
+}

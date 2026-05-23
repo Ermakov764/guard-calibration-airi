@@ -1,17 +1,16 @@
-# Main paper: On Calibration of LLM-based Guard Models (ICLR 2025)
 paper:
   title: "On Calibration of LLM-based Guard Models for Reliable Content Moderation"
   venue: "ICLR 2025"
   openreview: "https://openreview.net/forum?id=wUbum0nd9N"
 
 models:
-  colab_primary: "allenai/wildguard"          # 7B — Colab T4 4-bit only
-  local_fallback: "meta-llama/Llama-Guard-3-1B"  # ~2GB VRAM fp16 / ~1GB 4-bit
+  colab_default: "ibm-granite/granite-guardian-3.1-2b"
+  colab_optional: "allenai/wildguard"
 
 dataset:
   hf_id: "allenai/wildguardmix"
-  split: "train"  # use test subset if available in your Colab slice
-  n_samples: 300
+  split: "wildguardtest"
+  n_samples: 100
   seed: 42
 
 perturbations:
@@ -25,6 +24,6 @@ metrics:
   calibration_split: 0.3
 
 paths:
-  data_dir: "data"
-  outputs_dir: "outputs"
-  scores_csv: "outputs/guard_scores.csv"
+  data_dir: data
+  outputs_dir: outputs
+  scores_csv: outputs/guard_scores.csv
